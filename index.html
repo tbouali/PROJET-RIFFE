@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rif Explorer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+  <!-- PARTIE 1 : NAVBAR (barre de navigation)-->
+  <header class="navbar" id="navbar">
+
+    <img src="public/assets/images/logo.png" alt="logo" class="logo">
+    <!-- <a href="#accueil" class="logo">rifexplorer</a> -->
+
+    <nav class="nav-links">
+      <!-- <a href="#accueil">Accueil</a> -->
+      <a href="#accueil" class="active">Accueil</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#esprit">L'esprit du Rif</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+       
+      <!-- Le compteur : le JavaScript va changer le chiffre dans <span id="fav-count"> -->
+      <p class="fav-counter">Mes favoris <span id="fav-count">0</span></p>
+      <!-- <button class="menu-btn" id="menu-btn">☰</button> -->
+      <!-- Bouton mode sombre -->
+      <button class="theme-btn" id="theme-btn" aria-label="Changer de thème">🌙</button>
+      <!-- <button>&#127769;</button> -->
+    </div>
+  </header>
+
+  <main>
+
+    <!--PARTIE 2 : SECTION D'ACCUEIL (hero)-->
+    <section class="hero" id="accueil">
+      <div class="hero-content">
+        <p class="hero-tag">Maroc du nord &nbsp; </p>
+          
+        <h1>
+          Le nord.<br>
+          La nature.<br>
+          <em>La liberté.</em>
+        </h1>
+
+        <p class="hero-text">
+          Des criques turquoise aux ruelles bleues,
+          prenez le temps de découvrir le Rif.
+        </p>
+
+        <!-- Au clic, le JavaScript fera descendre la page vers #destinations -->
+        <button class="btn btn-orange" id="btn-escapade">Trouver mon escapade</button>
+      </div>
+
+      <p class="hero-place">Al Hoceima, Maroc</p>
+    </section>
+
+    <!-- PARTIE 3 : SECTION DESTINATIONS-->
+    <section class="destinations" id="destinations">
+
+      <div class="section-header">
+        <div>
+          <p class="section-label">Le Rif à votre rythme</p>
+          <h2>Une envie. <em>Une escapade.</em></h2>
+        </div>
+        <p class="section-intro">La mer, les sommets ou une médina ? Suivez votre curiosité.</p>
+      </div>
+
+      <!-- Les filtres : data-filter dit au JavaScript quelle catégorie afficher -->
+      <div class="filters">
+        <button class="filter-btn active" data-filter="tout">Tout explorer</button>
+        <button class="filter-btn" data-filter="plage">Plages</button>
+        <button class="filter-btn" data-filter="nature">Nature</button>
+        <button class="filter-btn" data-filter="ville">Villes</button>
+        <button class="filter-btn" data-filter="patrimoine">Patrimoine</button>
+      </div>
+
+      <!-- La grille qui contient les 6 cartes -->
+      <div class="cards-grid">
+
+        <!--CARTE 1-->
+        <!-- data-category : sert au filtre -->
+        <article class="card" data-category="plage">
+          <div class="card-image">
+            <img src="public/assets/images/Plage-Hoc.png" alt="Plage d'Al Hoceima">
+                 <!-- la légende de la carte -->
+              <span class="card-caption">Le grand bleu</span>
+              
+            <span class="card-tag">Plage</span>
+            <button class="fav-btn" aria-label="Ajouter aux favoris">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-place">Al Hoceima</p>
+            <h3>La baie de Quemado</h3>
+            <p class="card-text">La Méditerranée au pied de la ville. Une pause entre sable, falaises et eau turquoise.</p>
+
+            <!-- Informations cachées au départ (le CSS les cache avec la classe "hidden") -->
+            <div class="card-extra hidden">
+              <p><strong>Meilleure période :</strong> de juin à septembre.</p>
+              <p><strong>À faire :</strong> baignade, balade sur la plage, coucher de soleil sur la baie.</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-theme">Évasion marine</span>
+              <button class="more-btn">Voir plus</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARTE 2 -->
+        <article class="card" data-category="ville">
+          <div class="card-image">
+            <img src="public/assets/images/mille-bleu.png" alt="Ruelles bleues de Chefchaouen">
+            <span class="card-caption">Mille nuances de bleu</span>
+            <span class="card-tag">Ville</span>
+            <button class="fav-btn" aria-label="Ajouter aux favoris">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-place">Chefchaouen</p>
+            <h3>La perle bleue</h3>
+            <p class="card-text">Des ruelles à parcourir sans se presser, des portes bleues et le Rif pour horizon.</p>
+
+            <div class="card-extra hidden">
+              <p><strong>Meilleure période :</strong> d'avril à juin et en automne.</p>
+              <p><strong>À faire :</strong> se perdre dans la médina, goûter le fromage de chèvre local.</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-theme">Flânerie urbaine</span>
+              <button class="more-btn">Voir plus</button>
+            </div>
+          </div>
+        </article>
+
+        <!--CARTE 3  -->
+        <article class="card" data-category="nature">
+          <div class="card-image">
+            <img src="public/assets/images/APPEL-NAT.png" alt="Cascades d'Akchour">
+              <span class="card-caption">L'appel de la nature</span>
+
+            <span class="card-tag">Nature</span>
+            <button class="fav-btn" aria-label="Ajouter aux favoris">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-place">Akchour</p>
+            <h3>Au fil des cascades</h3>
+            <p class="card-text">Le bruit de l'eau, des sentiers rocheux et une parenthèse au cœur des montagnes.</p>
+
+            <div class="card-extra hidden">
+              <p><strong>Meilleure période :</strong> au printemps, quand l'eau est abondante.</p>
+              <p><strong>À faire :</strong> randonnée jusqu'aux cascades, pique-nique au bord de l'eau.</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-theme">Randonnée &amp; fraîcheur</span>
+              <button class="more-btn">Voir plus</button>
+            </div>
+          </div>
+        </article>
+
+        <!--CARTE 4  -->
+        <article class="card" data-category="plage">
+          <div class="card-image">
+            <img src="public/assets/images/Plage_H.png" alt="Plage de Tala Youssef">
+
+            <span class="card-caption">Juste vous et l'horizon</span>
+            <span class="card-tag">Plage</span>
+            <button class="fav-btn" aria-label="Ajouter aux favoris">♡</button>
+            
+          </div>
+          <div class="card-body">
+            <p class="card-place">Tala Youssef</p>
+            <h3>Une autre idée du calme</h3>
+            <p class="card-text">Le littoral rifain, un horizon ouvert et le plaisir simple de ralentir face à la mer.</p>
+
+            <div class="card-extra hidden">
+              <p><strong>Meilleure période :</strong> en été, hors des week-ends chargés.</p>
+              <p><strong>À faire :</strong> se reposer sur la plage, marcher le long de la côte.</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-theme">Pause sur la côte</span>
+              <button class="more-btn">Voir plus</button>
+            </div>
+          </div>
+        </article>
+
+        <!--CARTE 5 -->
+        <article class="card" data-category="nature">
+          <div class="card-image">
+            <img src="public/assets/images/Nature-F.png" alt="Forêt de cèdres de Ketama">
+
+            <span class="card-caption">Prendre de la hauteur</span>
+
+            <span class="card-tag">Nature</span>
+            <button class="fav-btn" aria-label="Ajouter aux favoris">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-place">Ketama</p>
+            <h3>Le Rif, côté sommets</h3>
+            <p class="card-text">Des reliefs, des forêts et des routes de montagne pour découvrir un autre visage du nord.</p>
+
+            <div class="card-extra hidden">
+              <p><strong>Meilleure période :</strong> de mai à octobre.</p>
+              <p><strong>À faire :</strong> balade en forêt de cèdres, points de vue sur les montagnes.</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-theme">Horizons de montagne</span>
+              <button class="more-btn">Voir plus</button>
+            </div>
+          </div>
+        </article>
+
+        <!--CARTE 6 -->
+        <article class="card" data-category="patrimoine">
+          <div class="card-image">
+            <img src="public/assets/images/Patrimoine.png" alt="Vestiges de Torres de Alcalá">
+            <span class="card-caption">Des pierres et des histoires</span>
+            <span class="card-tag">Patrimoine</span>
+            <button class="fav-btn" aria-label="Ajouter aux favoris">♡</button>
+          </div>
+          <div class="card-body">
+            <p class="card-place">Torres de Alcalá</p>
+            <h3>L'histoire face à la mer</h3>
+            <p class="card-text">Un patrimoine côtier à découvrir, entre vestiges, reliefs et vues sur la Méditerranée.</p>
+
+            <div class="card-extra hidden">
+              <p><strong>Meilleure période :</strong> au printemps et en automne.</p>
+              <p><strong>À faire :</strong> visiter les vestiges, prendre des photos au coucher du soleil.</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-theme">Mémoire du littoral</span>
+              <button class="more-btn">Voir plus</button>
+            </div>
+          </div>
+        </article>
+
+      </div> <!-- fin de .cards-grid -->
+         
+        <p class="cards-note"><i class="fa-regular fa-compass"></i>&nbsp;
+          Six points de départ. À vous d'écrire la suite.</p>
+    </section>
+
+    <!--PARTIE 4 : L'ESPRIT DU RIF-->
+    <section class="esprit" id="esprit">
+      <div class="esprit-image">
+        <img src="public/assets/images/PLUS-FRAIS.png" alt="Ruelle bleue du Rif">
+        <p class="esprit-badge">Plus près des lieux.<br>Plus près des gens.</p>
+      </div>
+
+      <div class="esprit-text">
+        <p class="section-label">L'esprit du Rif</p>
+        <h2>Moins de détour.<br> <em>Plus de découvertes.</em></h2>
+
+        <p>Le Rif se découvre dans une ruelle, au bord d'une crique, sur un sentier.<br> Dans les paysages, bien sûr. Mais aussi dans les rencontres et les petits moments qu'on n'avait pas prévus.</p>
+        <p>Rif Explorer rassemble quelques idées pour partir à votre rythme.<br> Choisissez un lieu, gardez vos coups de cœur et laissez de la place à l'imprévu.</p>
+       <!--                  -->
+        <ul class="esprit-points">
+             <li><i class="fa-solid fa-location-dot"></i> Ancré dans le nord</li>
+             <li><i class="fa-regular fa-compass"></i> Curieux et respectueux</li>
+            </ul>
+         <!--  -->
+        <!-- <ul class="esprit-points">
+          <li>Ancré dans le nord</li>
+          <li>Curieux et respectueux</li>
+
+        </ul> -->
+          <!-- <a href="#destinations" class="btn btn-orange esprit-link">Découvrir les six destinations</a>      -->
+            <div class="esprit-action">
+           <a href="#destinations" class="esprit-link">Découvrir les six destinations</a>
+
+              <a href="#destinations" class="btn btn-orange esprit-btn">Explorer</a> 
+             <!-- <a href="#destinations" class="btn btn-orange">explorer</a> -->
+            </div>
+
+        <!-- <a href="#destinations" class="esprit-link">Découvrir les six destinations</a> -->
+      </div>
+    </section>
+
+    <!-- PARTIE 5 : STATISTIQUES-->
+    <section class="stats">
+      <div class="stats-title">
+        <p class="section-label">Un territoire, mille possibilités</p>
+        <h2>Petit aperçu.<br> <em>Grandes envies.</em></h2>
+      </div>
+
+      <div class="stats-numbers">
+        <div class="stat">
+          <p class="stat-number">6</p>
+          <p class="stat-label">destinations à découvrir</p>
+        </div>
+        <div class="stat">
+          <p class="stat-number">4</p>
+          <p class="stat-label">façons de s'évader</p>
+        </div>
+        <div class="stat">
+          <p class="stat-number">100%</p>
+          <p class="stat-label">envie d'explorer</p>
+        </div>
+      </div>
+    </section>
+
+    <!--PARTIE 6 : FAQ (questions fréquentes) -->
+    <section class="faq" id="faq">
+      <div class="faq-title">
+        <p class="section-label">Avant de partir</p>
+        <h2>Une question ?<br> <em>On vous guide.<br></em></h2>
+        <p>Quelques repères pour préparer<br> votre prochaine escapade.</p>
+      </div>
+
+      <div class="faq-list">
+
+        <!-- Chaque question = un bouton + une réponse cachée -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <div>
+              <span class="faq-number">01 </span>
+              <!-- <span>01 </span> &nbsp;&nbsp;&nbsp; -->
+              <span class="faq-text" >Comment choisir ma destination ?</span>
+            </div>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer hidden">
+            <p>Choisissez votre envie avec les filtres : plage, nature, ville ou patrimoine. Cliquez sur « Voir plus » pour découvrir chaque lieu, puis sur le cœur pour garder vos coups de cœur.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <div>
+              <span class="faq-number">02 </span>
+            <!-- <span>02</span>  &nbsp;&nbsp;&nbsp; -->
+            <span> Mes favoris restent-ils enregistrés ?</span>
+            </div>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer hidden">
+            <p>Pour l'instant, les favoris restent sur la page tant que vous ne la fermez pas. Ils sont remis à zéro quand vous rechargez la page.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <div>
+              <span class="faq-number">03 </span>
+            <!-- <span>03</span>&nbsp;&nbsp;&nbsp; -->
+            <span>Peut-on réserver une excursion ici ?</span>
+            </div>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer hidden">
+            <p>Non, ce site est un projet de démonstration. Il sert à s'inspirer et à préparer son voyage, pas à réserver.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <div>
+              <span class="faq-number">04 </span>
+            <!-- </span>04</span>&nbsp;&nbsp;&nbsp; -->
+            <span>Que vérifier avant de partir ?</span>
+            <span class="faq-icon">+</span>
+            </div>
+          </button>
+          <div class="faq-answer hidden">
+            <p>Vérifiez la météo, l'état des routes de montagne et les horaires des sites que vous voulez visiter.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PARTIE 7 : FOOTER (pied de page)-->
+  <footer class="footer">
+    <div class="footer-top">
+     <img src="public/assets/images/logo.png" alt="logo" class="logo">
+      <!-- <a href="#accueil" class="logo">rifexplorer</a> -->
+      <p class="footer-slogan">Le nord, autrement.</p>
+      <p>Votre prochaine escapade vous attend.</p>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Rif Explorer · Projet de démonstration</p>
+      <p>Crédits photos</p>
+      <p>Fait avec curiosité, dans le Rif.</p>
+    </div>
+  </footer>
+
+  <!-- PARTIE 8 : BOUTON RETOUR EN HAUT
+       (caché au départ, le JavaScript le fera apparaître)-->
+  <button class="back-to-top hidden" id="btn-top" aria-label="Retour en haut">↑</button>
+  <!-- Le fichier JavaScript (étapes 5 à 8) -->
+  <script src="script.js"></script>
+</body>
+</html>

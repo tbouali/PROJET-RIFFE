@@ -1,0 +1,1230 @@
+
+/*ÉTAPE 2 : BASES + NAVBAR + HERO */
+/* Polices Google : une police simple + une police élégante pour les mots en italique */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Fraunces:ital,wght@1,400;1,600&display=swap");
+/* 1. VARIABLES (les couleurs du site) */
+:root {
+  --vert-fonce: #0b3b40;      /* navbar, stats, footer */
+  --orange: #f26a2e;          /* boutons et accents */
+  --fond: #f7f9f9;            /* fond de la page */
+  --fond-carte: #ffffff;      /* fond des cartes */
+  --texte: #12353a;           /* texte principal */
+  --texte-doux: #5b7075;      /* texte secondaire */
+  --bordure: #e2e8e9;
+}
+
+/* Mode sombre : on change juste les variables.
+   (le JavaScript ajoutera la classe "dark" sur <body> à l'étape 8) */
+body.dark {
+  --fond: #0e1a1c;
+  --fond-carte: #16282b;
+  --texte: #e8f0f0;
+  --texte-doux: #9fb3b6;
+  --bordure: #2a4044;
+}
+
+/* 2. STYLES DE BASE */
+/* On remet tout à zéro */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;   /* le padding ne agrandit pas la boîte */
+}
+
+/* Défilement doux quand on clique sur un lien comme #destinations */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: var(--fond);
+  color: var(--texte);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Les mots en <em> dans les titres : police élégante en italique */
+h1 em,
+h2 em {
+  font-family: "Fraunces", serif;
+  font-weight: 400;
+}
+
+/* La classe qui cache un élément.
+   Le JavaScript l'ajoutera / la retirera. */
+.hidden {
+  display: none;
+}
+
+/* Un bouton orange réutilisable */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-orange {
+  background-color: var(--orange);
+  color: white;
+}
+
+.btn-orange:hover {
+  background-color: #d95a21;
+  transform: translateY(-2px);
+}
+
+.btn-orange{
+  padding: 12px 15px;          /* haut/bas puis gauche/droite */
+  border-radius: 5px;         /* bouton en forme de pilule */
+}
+/* 3. NAVBAR*/
+.navbar {
+  position: fixed;          /* reste en haut quand on scrolle */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;             /* passe au-dessus du reste */
+
+  display: flex;
+  justify-content: space-between;   /* logo à gauche, actions à droite */
+  align-items: center;
+  padding: 18px 60px;
+
+  color: white;
+  background-color: transparent;    /* transparente au départ */
+  transition: background-color 0.3s, padding 0.3s, box-shadow 0.3s;
+}
+
+/* Quand on descend, le JavaScript ajoute la classe "scrolled" */
+.navbar.scrolled {
+  background-color: var(--vert-fonce);
+  padding: 12px 60px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  width: 150px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+/* .nav-links a:hover {
+  border-color: var(--orange);
+} */
+.nav-links a.active {
+  border-color: var(--orange);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.fav-counter {
+  font-size: 13px;
+  font-weight: 700;
+}
+/* Le chiffre du compteur dans une petite pastille */
+#fav-count {
+  display: inline-block;
+  min-width: 22px;
+  padding: 0 6px;
+  margin-left: 4px;
+  border-radius: 20px;
+  background-color: var(--orange);
+  text-align: center;
+}
+.theme-btn {
+  font-size: 18px;
+}
+.hero {
+  position: relative;
+  min-height: 85vh;         /* un peu moins que l'écran entier, comme la maquette */
+  display: flex;
+  align-items: center;
+  padding: 140px 80px 100px;
+
+  /* 3 couches : haut sombre (pour la navbar) + côté gauche sombre (pour le texte) + photo */
+  background-image:
+  /* haut sombre : pour que la navbar reste lisible */
+    linear-gradient(180deg, rgba(11, 59, 64, 0.8) 0%, rgba(11, 59, 64, 0) 25%),
+    /* gauche sombre : pour que le titre reste lisible */
+    linear-gradient(90deg, rgba(11, 59, 64, 0.9) 0%, rgba(11, 59, 64, 0.5) 40%, rgba(11, 59, 64, 0.1) 80%),
+    /* ta photo recadrée */
+    url("../assets/images/fond_H.png");
+
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+/* 4. HERO (section d'accueil)*/
+/*.hero {
+  position: relative;       /* pour placer .hero-place en bas à droite */
+  /* min-height: 100vh;        /* 100vh = toute la hauteur de l'écran */
+  /* display: flex; */
+  /* align-items: center;      /* centre le texte verticalement */
+  /* padding: 120px 60px 80px; */
+
+  /* Deux fonds superposés : un dégradé sombre PUIS l'image */
+  /* background-image:
+    linear-gradient(90deg, rgba(11, 59, 64, 0.85), rgba(11, 59, 64, 0.2)),
+    url("../assets/images/fond.png");
+  background-size: cover;       /* l'image remplit toute la section */
+  /* background-position: center;
+  color: white;
+}  */
+
+.hero-content {
+  max-width: 560px;
+}
+
+.hero-tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 72px;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+
+/* La dernière ligne en italique orange */
+.hero h1 em {
+  color: #f9a36f;
+  font-size: 80px;
+}
+
+.hero-text {
+  font-size: 16px;
+  font-weight: 500;
+  max-width: 380px;
+  margin-bottom: 30px;
+}
+
+.hero-place {
+  position: absolute;
+  right: 60px;
+  bottom: 40px;
+  font-size: 13px;
+  font-weight: 700;
+}
+/* ÉTAPE 3 : SECTION DESTINATIONS (filtres + cartes)
+   À COLLER À LA FIN DE TON FICHIER style.css
+    */
+
+/* 6. STYLES PARTAGÉS DES SECTIONS
+(utilisés aussi par les étapes suivantes)
+    */
+
+/* Le petit texte au-dessus des titres */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  margin-bottom: 10px;
+}
+
+/* Les titres h2 du site */
+h2 {
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+/*7. SECTION DESTINATIONS */
+.destinations {
+  padding: 90px 80px;
+}
+
+/* Titre à gauche, petit texte à droite */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.section-intro {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texte-doux);
+  max-width: 260px;
+  text-align: right;
+}
+
+/* 8. FILTRES */
+.filters {
+  display: flex;
+  flex-wrap: wrap;          /* les boutons passent à la ligne si pas de place */
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.filter-btn {
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--texte-doux);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-btn:hover {
+  color: var(--texte);
+  background-color: var(--bordure);
+}
+
+/* Le bouton choisi (le JavaScript déplacera la classe "active") */
+.filter-btn.active {
+  background-color: var(--vert-fonce);
+  color: white;
+}
+
+/*9. GRILLE DES CARTES*/
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* 3 colonnes de même largeur */
+  gap: 24px;
+  align-items: start;       /* une carte ouverte n'étire pas les autres */
+}
+
+
+/* 10. UNE CARTE- */
+.card {
+  background-color: var(--fond-carte);
+  border-radius: 14px;
+  overflow: hidden;         /* l'image suit les coins arrondis */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* --- La partie image --- */
+.card-image {
+  position: relative;       /* pour placer l'étiquette et le cœur dessus */
+  height: 210px;
+}
+
+.card-image img {
+  height: 100%;
+  object-fit: cover;        /* l'image remplit la zone sans se déformer */
+}
+
+/* L'étiquette (Plage, Ville...) en haut à gauche */
+.card-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #12353a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Le bouton cœur en haut à droite */
+.fav-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #12353a;
+  font-size: 18px;
+  line-height: 34px;
+  text-align: center;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.fav-btn:hover {
+  transform: scale(1.12);
+}
+
+/* Cœur choisi (le JavaScript ajoutera la classe "active") */
+.fav-btn.active {
+  color: #e53935;
+}
+
+/* --- La partie texte --- */
+.card-body {
+  padding: 20px 22px 18px;
+}
+
+.card-place {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--texte-doux);
+  margin-bottom: 6px;
+}
+
+.card-body h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 13px;
+  color: var(--texte-doux);
+  margin-bottom: 18px;
+}
+
+/* Infos cachées, visibles après "Voir plus" */
+.card-extra {
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  background-color: var(--fond);
+  font-size: 13px;
+  color: var(--texte-doux);
+}
+
+.card-extra p + p {
+  margin-top: 6px;
+}
+
+/* --- Le bas de la carte --- */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--bordure);
+}
+
+.card-theme {
+  font-size: 12px;
+  color: var(--texte-doux);
+}
+
+.more-btn {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--texte);
+}
+
+.more-btn:hover {
+  color: var(--orange);
+}
+
+/* Petit texte sous la grille */
+.cards-note {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--texte-doux);
+}
+
+/* ÉTAPE 4 : ESPRIT DU RIF + STATS + FAQ + FOOTER + RETOUR EN HAUT
+À COLLER À LA FIN DE TON FICHIER style.css*/
+
+/* 12. L'ESPRIT DU RIF */
+.esprit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;     /* image à gauche, texte à droite */
+  gap: 70px;
+  align-items: center;
+  padding: 80px;
+  background-color: var(--bordure);   /* fond gris clair */
+}
+
+.esprit-image {
+  position: relative;                 /* pour placer le badge dessus */
+}
+
+.esprit-image img {
+  height: 420px;
+  object-fit: cover;
+  border-radius: 0 90px 0 0;          /* seul le coin en haut à droite est arrondi */
+}
+
+/* Le petit badge blanc en bas à gauche de l'image */
+.esprit-badge {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background-color: white;
+  color: #12353a;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.esprit-text p {
+  font-size: 14px;
+  color: var(--texte-doux);
+  margin-top: 16px;
+}
+
+/* Le titre garde sa couleur, on annule celle des paragraphes */
+.esprit-text .section-label {
+  margin-top: 0;
+}
+
+.esprit-points {
+  display: flex;
+  gap: 24px;
+  margin-top: 22px;
+  font-size: 12px;
+  font-weight: 700;
+}
+/* Les icônes en orange */
+.esprit-points i {
+  color: var(--orange);
+  font-size: 14px;           /* taille de l'icône */
+}
+
+/* Le lien avec le trait orange en dessous
+.esprit-link {
+  display: inline-block;
+  margin-top: 26px;
+  padding-bottom: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--orange);
+} */
+/* Le texte et le bouton sur la même ligne */
+.esprit-action {
+  display: flex;
+  align-items: center;     /* alignés verticalement */
+  gap: 20px;               /* espace entre le texte et le bouton */
+  margin-top: 26px;
+}
+
+/* Le texte avec le trait orange en dessous */
+.esprit-link {
+  padding-bottom: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  /* border-bottom: 2px solid var(--orange); */
+}
+/* Le bouton "Explorer" de la section L'esprit du Rif */
+.esprit-btn {
+  padding: 0px 20px;        /* espace dans le bouton : haut/bas puis gauche/droite */
+  border-radius: 20px;       /* coins très arrondis : forme de pilule */
+  font-size: 10px;           /* taille du texte */
+  letter-spacing: 0.5px;     /* léger espace entre les lettres */
+  box-shadow: 0 6px 16px rgba(242, 106, 46, 0.35);   /* ombre orange douce */
+}
+
+/* .esprit-link:hover {
+  color: var(--orange);
+} */
+
+/* .esprit-link:hover {
+  color: var(--orange);
+} */
+
+/* 13. STATISTIQUES */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 80px;
+  background-color: var(--vert-fonce);
+  color: white;
+}
+
+.stats .section-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stats h2 em {
+  color: #f9a36f;
+}
+
+.stats-numbers {
+  display: flex;
+}
+
+.stat {
+  padding: 0 40px;
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);  /* trait entre les chiffres */
+}
+
+.stat:first-child {
+  border-left: none;
+}
+
+.stat-number {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 14. FAQ */
+.faq {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;   /* titre à gauche, questions à droite */
+  gap: 80px;
+  padding: 90px 80px;
+}
+
+.faq-title p:last-child {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--texte-doux);
+}
+
+.faq-item {
+  border-top: 1px solid var(--bordure);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid var(--bordure);
+}
+
+/* Le bouton de la question prend toute la largeur */
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+}
+  
+.faq-text {
+  color: var(--orange);
+}
+.faq-number {
+  margin-right: 20px;
+}
+
+/* .faq-question:hover {
+  color: var(--orange);
+} */
+
+.faq-icon {
+  font-size: 20px;
+  color: var(--texte-doux);
+}
+
+.faq-answer {
+  padding-bottom: 20px;
+  font-size: 13px;
+  color: var(--texte-doux);
+  max-width: 520px;
+}
+
+/*15. FOOTER*/
+.footer {
+  padding: 50px 80px 30px;
+  background-color: var(--vert-fonce);
+  color: white;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.footer-slogan {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 400;
+  color: #f9a36f;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 16. BOUTON RETOUR EN HAUT*/
+.back-to-top {
+  position: fixed;          /* reste au même endroit de l'écran */
+  right: 30px;
+  bottom: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--orange);
+  color: white;
+  font-size: 22px;
+  line-height: 48px;        /* centre la flèche (on n'utilise PAS display ici) */
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  transition: transform 0.2s;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+}
+/*  */
+/* La légende en bas de l'image */
+.card-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 40px 14px 12px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+ 
+
+/*  
+   ÉTAPE 9 : SITE RESPONSIVE (tablettes et téléphones)
+   VERSION SANS BOUTON MENU : les liens restent visibles sur téléphone.
+     */
+
+
+
+/* -----------------------------------------------------
+   TABLETTE : écran de 1000px ou moins
+   - les grandes marges de 80px deviennent 30px
+   - les cartes passent de 3 à 2 colonnes
+   ----------------------------------------------------- */
+@media (max-width: 1000px) {
+
+  .navbar,
+  .navbar.scrolled {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .hero {
+    padding: 130px 30px 80px;
+  }
+
+  .hero-place {
+    right: 30px;
+  }
+
+  .destinations,
+  .esprit,
+  .faq,
+  .stats,
+  .footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);    /* 2 colonnes */
+  }
+
+  .esprit,
+  .faq {
+    gap: 40px;
+  }
+
+  .stat {
+    padding: 0 24px;
+  }
+}
+
+
+/* -----------------------------------------------------
+   PETIT ÉCRAN : écran de 800px ou moins
+   - les liens de la navbar passent sur une 2e ligne
+   - esprit, FAQ, stats et footer passent sur 1 colonne
+   ----------------------------------------------------- */
+@media (max-width: 800px) {
+
+  /* Navbar sur 2 lignes : logo + actions, puis les liens en dessous */
+  .navbar {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .nav-links {
+    order: 3;                  /* les liens passent en dessous */
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  /* Titres du hero un peu plus petits */
+  .hero h1 {
+    font-size: 56px;
+  }
+
+  .hero h1 em {
+    font-size: 62px;
+  }
+
+  /* Image au-dessus du texte, FAQ en une colonne */
+  .esprit,
+  .faq {
+    grid-template-columns: 1fr;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .esprit-image img {
+    height: 300px;
+  }
+
+  /* Statistiques : le titre au-dessus des chiffres */
+  .stats {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .stats-numbers {
+    width: 100%;
+  }
+
+  .stat {
+    flex: 1;                   /* les 3 chiffres se partagent la largeur */
+  }
+
+  /* Footer : tout est empilé */
+  .footer-top,
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+
+/* -----------------------------------------------------
+   TÉLÉPHONE : écran de 650px ou moins
+   - les cartes passent sur 1 colonne
+   ----------------------------------------------------- */
+@media (max-width: 650px) {
+
+  .navbar,
+  .navbar.scrolled {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .nav-actions {
+    gap: 12px;
+  }
+
+  .logo {
+    width: 110px;              /* logo plus petit */
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 80vh;
+    padding: 110px 20px 70px;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 em {
+    font-size: 50px;
+  }
+
+  .hero-text {
+    font-size: 15px;
+  }
+
+  .hero-place {
+    right: 20px;
+    bottom: 24px;
+  }
+
+  /* Marges des sections */
+  .destinations,
+  .esprit,
+  .faq,
+  .stats,
+  .footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .destinations {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  /* Titre de Destinations : le petit texte passe sous le titre */
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .section-intro {
+    text-align: left;
+  }
+
+  /* Cartes : 1 colonne */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-image {
+    height: 190px;
+  }
+
+  /* L'esprit du Rif */
+  .esprit-image img {
+    height: 260px;
+  }
+
+  .esprit-text br {
+    display: none;             /* on ignore les retours à la ligne forcés */
+  }
+
+  .esprit-points {
+    flex-wrap: wrap;           /* les 2 points passent à la ligne si besoin */
+    gap: 12px 24px;
+  }
+
+  .esprit-action {
+    flex-wrap: wrap;           /* le texte et le bouton passent à la ligne si besoin */
+  }
+
+  /* Statistiques */
+  .stat {
+    padding: 0 8px;
+  }
+
+  .stat-number {
+    font-size: 32px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  /* FAQ */
+  .faq-question {
+    font-size: 13px;
+    gap: 12px;
+  }
+
+  .faq-answer {
+    max-width: none;
+  }
+
+  /* Bouton retour en haut */
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*********************************************************************************************************/
+/* =====================================================
+   ÉTAPE 9 : SITE RESPONSIVE (tablettes et téléphones)
+   VERSION COMPLÈTE : elle remplace l'ancienne.
+   À COLLER TOUT À LA FIN DE TON FICHIER style.css
+   ===================================================== */
+
+
+/* -----------------------------------------------------
+   Le bouton menu ☰ : caché sur ordinateur
+   ----------------------------------------------------- */
+/* .menu-btn {
+  display: none;
+  font-size: 22px;
+  line-height: 1;
+} */
+
+
+/* -----------------------------------------------------
+   TABLETTE : écran de 1000px ou moins
+   - les grandes marges de 80px deviennent 30px
+   - les cartes passent de 3 à 2 colonnes
+   ----------------------------------------------------- */
+/* @media (max-width: 1000px) {
+
+  .navbar,
+  .navbar.scrolled {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  } */
+
+  /* .hero {
+    padding: 130px 30px 80px;
+  }
+
+  .hero-place {
+    right: 30px;
+  }
+
+  .destinations,
+  .esprit,
+  .faq,
+  .stats,
+  .footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);    /* 2 colonnes */
+  /* }
+
+  .esprit,
+  .faq {
+    gap: 40px;
+  }
+
+  .stat {
+    padding: 0 24px;
+  }
+}
+ /* */  
+
+/* -----------------------------------------------------
+   PETIT ÉCRAN : écran de 800px ou moins
+   - le menu devient un bouton ☰
+   - esprit, FAQ, stats et footer passent sur 1 colonne
+   ----------------------------------------------------- */
+/* @media (max-width: 800px) { */
+
+  /* Le bouton ☰ apparaît */
+  /* .menu-btn {
+    display: block;
+  } */
+
+  /* Le menu est caché, et s'ouvre SOUS la navbar avec la classe "open" */
+  /*  */
+
+  /* Image au-dessus du texte, FAQ en une colonne */
+  /* .esprit,
+  .faq {
+    grid-template-columns: 1fr;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .esprit-image img {
+    height: 300px;
+  } */
+
+  /* Statistiques : le titre au-dessus des chiffres */
+  /* .stats {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .stats-numbers {
+    width: 100%;
+  } */
+
+  /* .stat {
+    flex: 1;                                 les 3 chiffres se partagent la largeur */
+  /* } */
+
+  /* Footer : tout est empilé */
+  /* .footer-top,
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+} */
+
+
+/* -----------------------------------------------------
+   TÉLÉPHONE : écran de 650px ou moins
+   - les cartes passent sur 1 colonne
+   ----------------------------------------------------- */
+/* @media (max-width: 650px) {
+
+  .navbar,
+  .navbar.scrolled {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .nav-actions {
+    gap: 12px;
+  } */
+
+  /* .logo {
+    width: 110px;              logo plus petit */
+  /* } */
+
+  /* Hero */
+  /*  */
+
+  /* .esprit-text br {
+    display: none;             /* on ignore les retours à la ligne forcés */
+  /* } */
+
+  /* .esprit-points {
+    flex-wrap: wrap;           /* les 2 points passent à la ligne si besoin */
+    /* gap: 12px 24px;   */
+  /* } */
+
+  /* .esprit-action {
+    flex-wrap: wrap;           /* le texte et le bouton passent à la ligne si besoin */
+  /* } */
+
+  /* Statistiques */
+  /* .stat {
+    padding: 0 8px;
+  }
+
+  .stat-number {
+    font-size: 32px;
+  } */
+
+  /* .stat-label {
+    font-size: 11px; */
+  /* } */  
+  /* FAQ */
+  /* .faq-question {
+    font-size: 13px;
+    gap: 12px;
+  }
+
+  .faq-answer {
+    max-width: none;
+  } */
+
+  /* Bouton retour en haut */
+  /* .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 20px;
+  }
+} */
